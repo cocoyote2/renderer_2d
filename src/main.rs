@@ -26,6 +26,7 @@ async fn main() {
     let map_offset_x = (WINDOW_WIDTH - grid_width) / 2;
     let map_offset_y = (WINDOW_HEIGHT - grid_height) / 2;
 
+    //TODO: store the map in a file
     let map: [i32;  49] = [
         1, 1, 1, 1, 1, 1, 1,
         1, 0, 0, 0, 0, 0, 1,
@@ -67,4 +68,6 @@ async fn main() {
 
         next_frame().await
     }
+
+    //TODO: Make the raycaster
 }
