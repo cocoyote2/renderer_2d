@@ -57,20 +57,21 @@ pub fn draw_player(player: &Player){
 }
 
 fn draw_field_vision(player: &Player){
+    // Directions
+    let x_for_angle = get_x_for_angle(player.angle);
+    let y_for_angle = get_y_for_angle(player.angle);
+
+    let end_x = player.x + MAP_OFFSET_X as f32 + x_for_angle * 200.0;
+    let end_y = player.y + MAP_OFFSET_Y as f32 + y_for_angle * 200.0;
+
     draw_line(
         player.x + MAP_OFFSET_X as f32, 
         player.y + MAP_OFFSET_Y as f32, 
-        get_x_for_angle(player.angle),
-        get_y_for_angle(player.angle),
+        end_x,
+        end_y,
         5.0, 
         GREEN
     );
-    draw_line(
-        player.x + MAP_OFFSET_X as f32, 
-        player.y + MAP_OFFSET_Y as f32, 
-        get_x_for_angle(player.angle + convert_degrees_to_radians(FOV)),
-        get_y_for_angle(convert_degrees_to_radians(FOV)), 
-        5.0, 
-        GREEN
-    );
+
+    //TODO: draw the second line
 }

@@ -5,9 +5,10 @@ pub fn convert_degrees_to_radians(angle: f32) -> f32{
 }
 
 pub fn get_y_for_angle(angle: f32)-> f32{
-    return f32::sin(convert_degrees_to_radians(angle));
+    // return the opposite of sin because (0, 0) is top left on the screen
+    return -f32::sin(convert_degrees_to_radians(angle));
 }
 
 pub fn get_x_for_angle(angle:f32) -> f32{
-    return f32::cos(convert_degrees_to_radians(angle));
+    return f32::cos(convert_degrees_to_radians(angle)).round();
 }
