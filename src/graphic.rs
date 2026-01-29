@@ -52,7 +52,7 @@ pub fn draw_map(map: [i32; 49], map_offset_x: i32, map_offset_y: i32){
 }
 
 pub fn draw_player(player: &Player){
-    draw_circle(player.get_player_drawn_x(), player.get_player_drawn_y(), CASE_SIZE as f32 / 2.0, GREEN);
+    draw_circle(player.get_player_drawn_x(), player.get_player_drawn_y(), CASE_SIZE as f32 / 4.0, GREEN);
     draw_field_vision(player);
 }
 
@@ -74,6 +74,6 @@ fn draw_line_from_player(player: &Player, angle: f32){
 }
 
 pub fn draw_field_vision(player: &Player){
-    draw_line_from_player(player, player.angle);
-    draw_line_from_player(player, player.angle + FOV);
+    draw_line_from_player(player, player.angle + FOV / 2.0);
+    draw_line_from_player(player, player.angle - FOV / 2.0);
 }

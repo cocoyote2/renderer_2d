@@ -1,3 +1,4 @@
+use crate::helpers::{get_x_for_angle, get_y_for_angle};
 use crate::{MAP_OFFSET_X, MAP_OFFSET_Y};
 
 use macroquad::prelude::KeyCode::*;
@@ -34,11 +35,19 @@ impl Player{
     }
 
     fn move_forward(&mut self){
-        self.x += PLAYER_MOVE_SPEED;
+        let end_x: f32 = get_x_for_angle(self.angle);
+        let end_y: f32 = get_y_for_angle(self.angle);
+
+        self.x += end_x * PLAYER_MOVE_SPEED;
+        self.y += end_y * PLAYER_MOVE_SPEED;
     }
 
     fn move_backward(&mut self){
-        self.x -= PLAYER_MOVE_SPEED;
+        let end_x: f32 = get_x_for_angle(self.angle);
+        let end_y: f32 = get_y_for_angle(self.angle);
+
+        self.x -= end_x * PLAYER_MOVE_SPEED;
+        self.y -= end_y * PLAYER_MOVE_SPEED;
     }
 
     pub fn handle_movements(&mut self){
