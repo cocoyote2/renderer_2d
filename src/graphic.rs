@@ -1,7 +1,7 @@
 use macroquad::prelude::*;
 
 use crate::player::{Player, FOV};
-use crate::helpers::{get_y_for_angle, get_x_for_angle};
+use crate::helpers::{get_y_for_angle, get_x_for_angle, get_coordinates_from_map_index};
 
 pub const CASE_SIZE: i32 = 64;
 pub const MAP_WIDTH: i32 = 7;
@@ -28,8 +28,7 @@ pub fn window_conf() -> Conf {
 
 pub fn draw_map(map: [i32; 49], map_offset_x: i32, map_offset_y: i32){
     for (i, elem) in map.iter().enumerate() {
-        let curr_col = (i as i32) % MAP_WIDTH;
-        let curr_row = (i as i32) / MAP_WIDTH;
+        let (curr_col, curr_row) = get_coordinates_from_map_index(i as i32, MAP_WIDTH, MAP_WIDTH);
 
         if *elem == 1 {
             draw_rectangle(
