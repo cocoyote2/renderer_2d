@@ -6,15 +6,17 @@ mod helpers;
 use macroquad::prelude::*;
 
 //Modules
-use player::Player;
+use player::{Player, PLAYER_SPAWN_X, PLAYER_SPAWN_Y, PLAYER_START_ANGLE};
 use graphic::{draw_map, draw_player, window_conf, MAP_OFFSET_X, MAP_OFFSET_Y};
+
+const MAP_SIZE: usize = 49;
 
 #[macroquad::main(window_conf)]
 async fn main() {
-    let player = Player{x: 60.0, y: 60.0, angle: 0.0}; 
+    let mut player = Player{x: PLAYER_SPAWN_X, y: PLAYER_SPAWN_Y, angle: PLAYER_START_ANGLE}; 
 
     //TODO: store the map in a file
-    let map: [i32;  49] = [
+    let map: [i32;  MAP_SIZE] = [
         1, 1, 1, 1, 1, 1, 1,
         1, 0, 0, 0, 0, 0, 1,
         1, 0, 0, 1, 1, 0, 1,
@@ -28,6 +30,8 @@ async fn main() {
         clear_background(LIGHTGRAY);
 
         draw_map(map, MAP_OFFSET_X, MAP_OFFSET_Y);
+        
+        player.handle_movements();
 
         draw_player(&player);
 

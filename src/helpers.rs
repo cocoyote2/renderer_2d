@@ -10,5 +10,5 @@ pub fn get_y_for_angle(angle: f32)-> f32{
 }
 
 pub fn get_x_for_angle(angle:f32) -> f32{
-    return f32::cos(convert_degrees_to_radians(angle)).round();
+    return f32::cos(convert_degrees_to_radians(angle));
 }

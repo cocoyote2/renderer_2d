@@ -1,7 +1,7 @@
 use macroquad::prelude::*;
 
 use crate::player::{Player, FOV};
-use crate::helpers::{convert_degrees_to_radians, get_y_for_angle, get_x_for_angle};
+use crate::helpers::{get_y_for_angle, get_x_for_angle};
 
 pub const CASE_SIZE: i32 = 64;
 pub const MAP_WIDTH: i32 = 7;
@@ -56,10 +56,9 @@ pub fn draw_player(player: &Player){
     draw_field_vision(player);
 }
 
-fn draw_field_vision(player: &Player){
-    // Directions
-    let x_for_angle = get_x_for_angle(player.angle);
-    let y_for_angle = get_y_for_angle(player.angle);
+fn draw_line_from_player(player: &Player, angle: f32){
+    let x_for_angle = get_x_for_angle(angle);
+    let y_for_angle = get_y_for_angle(angle);
 
     let end_x = player.x + MAP_OFFSET_X as f32 + x_for_angle * 200.0;
     let end_y = player.y + MAP_OFFSET_Y as f32 + y_for_angle * 200.0;
@@ -72,6 +71,9 @@ fn draw_field_vision(player: &Player){
         5.0, 
         GREEN
     );
+}
 
-    //TODO: draw the second line
+pub fn draw_field_vision(player: &Player){
+    draw_line_from_player(player, player.angle);
+    draw_line_from_player(player, player.angle + FOV);
 }
