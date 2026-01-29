@@ -35,6 +35,7 @@ impl Player{
     }
 
     fn move_forward(&mut self){
+        //TODO: check for collisions
         let end_x: f32 = get_x_for_angle(self.angle);
         let end_y: f32 = get_y_for_angle(self.angle);
 
@@ -43,6 +44,7 @@ impl Player{
     }
 
     fn move_backward(&mut self){
+        //TODO: check for collisions
         let end_x: f32 = get_x_for_angle(self.angle);
         let end_y: f32 = get_y_for_angle(self.angle);
 
