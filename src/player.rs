@@ -1,5 +1,6 @@
-use crate::helpers::{get_x_for_angle, get_y_for_angle};
-use crate::{MAP_OFFSET_X, MAP_OFFSET_Y, CASE_SIZE};
+use crate::graphic::{MAP_HEIGHT, MAP_WIDTH};
+use crate::helpers::{get_map_index_from_coordinates, get_x_for_angle, get_y_for_angle};
+use crate::{CASE_SIZE, MAP_OFFSET_X, MAP_OFFSET_Y, MAP_SIZE};
 
 use macroquad::prelude::KeyCode::*;
 use macroquad::prelude::is_key_down;
@@ -52,9 +53,17 @@ impl Player{
         self.y -= end_y * PLAYER_MOVE_SPEED;
     }
 
-    fn check_for_collisions(self){
+    pub fn get_index_on_map(&self) -> (i32, i32){
+        let map_x = self.x % MAP_OFFSET_X as f32 / CASE_SIZE as f32;
+        let map_y = self.y % MAP_OFFSET_Y as f32 / CASE_SIZE as f32;
+
+        return(f32::floor(map_x) as i32, f32::floor(map_y) as i32)
+    }
+
+    pub fn check_for_collisions(&self){
         // I need to know the next place where the player is gonna move to
-        // and avoid it or allow it
+        // and forbid it or allow it
+        println!("{}", self.x % MAP_OFFSET_X as f32);
     }
 
     pub fn handle_movements(&mut self){

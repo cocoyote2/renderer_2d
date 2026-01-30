@@ -14,7 +14,6 @@ pub fn get_x_for_angle(angle:f32) -> f32{
 }
 
 pub fn get_map_index_from_coordinates(y: i32, x: i32, col_number: i32, row_number: i32) -> i32{
-    // MAP_OFFSET_X ET MAP_OFFSET_Y = 0, 0
     if y > row_number - 1 || x > col_number - 1{
         panic!("Coordinates out of bounds in function get_map_index_from_coordinates");
     }
@@ -24,7 +23,7 @@ pub fn get_map_index_from_coordinates(y: i32, x: i32, col_number: i32, row_numbe
 
 pub fn get_coordinates_from_map_index(index: i32, col_number: i32, row_number: i32) -> (i32, i32){
     if index > col_number * row_number - 1{
-        panic!("Index out of bounds in function get_coordinates_from_map_index");
+    panic!("Index out of bounds in function get_coordinates_from_map_index");
     }
 
     let x = index % col_number;
