@@ -35,9 +35,9 @@ async fn main() {
     loop{
         clear_background(LIGHTGRAY);
 
-        draw_map(map, MAP_OFFSET_X, MAP_OFFSET_Y);
+        draw_map(&map, MAP_OFFSET_X, MAP_OFFSET_Y);
         
-        player.handle_movements();
+        player.handle_movements(&map);
 
         draw_player(&player);
 

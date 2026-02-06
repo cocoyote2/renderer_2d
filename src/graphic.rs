@@ -26,7 +26,7 @@ pub fn window_conf() -> Conf {
     }
 }
 
-pub fn draw_map(map: [i32; 49], map_offset_x: i32, map_offset_y: i32){
+pub fn draw_map(map: &[i32], map_offset_x: i32, map_offset_y: i32){
     for (i, elem) in map.iter().enumerate() {
         let (curr_col, curr_row) = get_coordinates_from_map_index(i as i32, MAP_WIDTH, MAP_WIDTH);
 

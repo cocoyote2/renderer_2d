@@ -35,44 +35,50 @@ impl Player{
         self.angle = (self.angle + PLAYER_TURN_SPEED) % 360.0;
     }
 
-    fn move_forward(&mut self){
-        //TODO: check for collisions
+    fn move_forward(&mut self, map : &[i32]){
         let end_x: f32 = get_x_for_angle(self.angle) * PLAYER_MOVE_SPEED;
         let end_y: f32 = get_y_for_angle(self.angle) * PLAYER_MOVE_SPEED;
-            
-        self.x += end_x;
-        self.y += end_y;
+
+        if self.can_move(map){
+            self.x += end_x;
+            self.y += end_y;
+        }
     }
 
-    fn move_backward(&mut self){
-        //TODO: check for collisions
-        let end_x: f32 = get_x_for_angle(self.angle);
-        let end_y: f32 = get_y_for_angle(self.angle);
+    fn move_backward(&mut self, map : &[i32]){
+        let end_x: f32 = get_x_for_angle(self.angle) * PLAYER_MOVE_SPEED;
+        let end_y: f32 = get_y_for_angle(self.angle) * PLAYER_MOVE_SPEED;
 
-        self.x -= end_x * PLAYER_MOVE_SPEED;
-        self.y -= end_y * PLAYER_MOVE_SPEED;
+        if self.can_move(map){
+            self.x -= end_x;
+            self.y -= end_y;
+        }
     }
 
-    pub fn get_index_on_map(&self) -> (i32, i32){
+    pub fn get_index_on_map_array(&self) -> (i32, i32){
         let map_x = self.x % MAP_OFFSET_X as f32 / CASE_SIZE as f32;
         let map_y = self.y % MAP_OFFSET_Y as f32 / CASE_SIZE as f32;
 
         return(f32::floor(map_x) as i32, f32::floor(map_y) as i32)
     }
 
-    pub fn check_for_collisions(&self){
-        // I need to know the next place where the player is gonna move to
-        // and forbid it or allow it
-        println!("{}", self.x % MAP_OFFSET_X as f32);
+    pub fn can_move(&self, map : &[i32]) -> bool{
+        let (map_x, map_y) = self.get_index_on_map_array();
+        let map_index = get_map_index_from_coordinates(map_y, map_x, MAP_WIDTH, MAP_HEIGHT) as usize;
+        let mut can_move = true;
+
+        if map[map_index] == 1{
+            can_move = false;
+        }
+
+        return can_move;
     }
 
-    pub fn handle_movements(&mut self){
+    pub fn handle_movements(&mut self, map : &[i32]){
         if is_key_down(W){
-            self.move_forward();
-
+            self.move_forward(map);
         }else if is_key_down(S){
-            self.move_backward();
-
+            self.move_backward(map);
         }
         
         if is_key_down(D){
